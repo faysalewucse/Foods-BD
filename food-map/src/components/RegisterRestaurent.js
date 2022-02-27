@@ -1,20 +1,19 @@
 import React, { useState } from "react";
-import "../CSS/Login.css";
+import "../CSS/Register.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Nav } from "react-bootstrap";
 import { makeFormEffect } from "./FormStyle";
 
-const Login = ({ setLoginUser }) => {
+const RegisterRestaurent = () => {
   const history = useHistory();
-
   const form_effect = () => {
     makeFormEffect();
   };
-
   const [user, setUser] = useState({
+    name: "",
     email: "",
+    address: "",
     password: "",
   });
 
@@ -26,18 +25,21 @@ const Login = ({ setLoginUser }) => {
     });
   };
 
-  const login = () => {
-    axios.post("http://localhost:9002/login", user).then((res) => {
-      alert(res.data.message);
-      setLoginUser(res.data.user);
-      history.push("/");
-    });
+  const register = () => {
+    const { name, email, address, password } = user;
+    if (name && email && address && password) {
+      axios.post("http://localhost:9002/register", user).then((res) => {
+        alert(res.data.message);
+        history.push("/login");
+      });
+    } else {
+      alert("invlid input");
+    }
   };
 
   makeFormEffect();
-
   return (
-    <div className="login--body">
+    <div className="register--body">
       <img class="wave" src="images/wave.png" />
       <div class="container" id="form--container">
         <div class="img">
@@ -46,16 +48,46 @@ const Login = ({ setLoginUser }) => {
         <div class="login-content">
           <div className="form">
             <img src="images/undraw_profile.svg" />
-            <h2 class="title">Login</h2>
+            <h2 class="title">Register</h2>
             <div onClick={form_effect} class="input-div one">
               <div class="i">
                 <i class="fas fa-user"></i>
+              </div>
+              <div class="div">
+                <h5>Restaurent Name</h5>
+                <input
+                  type="text"
+                  name="name"
+                  value={user.name}
+                  onChange={handleChange}
+                  class="input"
+                ></input>
+              </div>
+            </div>
+            <div onClick={form_effect} class="input-div one">
+              <div class="i">
+                <i class="fas fa-at"></i>
               </div>
               <div class="div">
                 <h5>Email</h5>
                 <input
                   name="email"
                   value={user.email}
+                  onChange={handleChange}
+                  type="email"
+                  class="input"
+                ></input>
+              </div>
+            </div>
+            <div onClick={form_effect} class="input-div address">
+              <div class="i">
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="div">
+                <h5>Address</h5>
+                <input
+                  name="address"
+                  value={user.address}
                   onChange={handleChange}
                   type="text"
                   class="input"
@@ -77,30 +109,21 @@ const Login = ({ setLoginUser }) => {
                 ></input>
               </div>
             </div>
-            <Nav.Link id="forgot--pass" href="#">
-              Forgot Password?
-            </Nav.Link>
             <input
-              onClick={login}
+              onClick={register}
               type="submit"
               class="btn"
-              value="Login"
+              value="Register"
             ></input>
             <h6>
-              Don't Have an Account?{" "}
-              <span onClick={() => history.push("/register")} id="sign--up">
-                Sign Up
+              Already Have a Restaurent Account?{" "}
+              <span
+                onClick={() => history.push("/login_as_restaurent")}
+                id="log--in"
+              >
+                Login
               </span>
             </h6>
-            <h5>
-              <span
-                onClick={() => history.push("/register_as_restaurent")}
-                id="sign--up"
-              >
-                Register
-              </span>{" "}
-              as a Restaurent
-            </h5>
           </div>
         </div>
       </div>
@@ -108,4 +131,4 @@ const Login = ({ setLoginUser }) => {
   );
 };
 
-export default Login;
+export default RegisterRestaurent;

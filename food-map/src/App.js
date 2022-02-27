@@ -1,30 +1,32 @@
+import { Redirect, Route, Switch } from "react-router-dom";
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Header from "./components/Header";
 import HomePage from "./components/HomePage";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import { useState } from "react";
+import CustomerDashboard from "./components/CustomerDashboard";
 
-function App() {
-  const [user, setLoginUser] = useState({});
+export default function App() {
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-          <Route path="/login">
-            <Login setLoginUser={setLoginUser} />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-        </Switch>
-      </Router>
-      {/* <Header /> */}
+      <Header />
+      <Switch>
+        <Route path="/" exact>
+          <Redirect to="/hello" />
+        </Route>
+        <Route path="/hello">
+          <HomePage />
+        </Route>
+        <Route path="/login" exact>
+          <Login />
+        </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Route path="/customer-dashboard">
+          <CustomerDashboard />
+        </Route>
+      </Switch>
     </div>
   );
 }
-
-export default App;

@@ -63,3 +63,27 @@
   background-position: right;
   color: #004111;
 }
+
+.customer_profile_circle {
+  height: 30px;
+}
+
+.profile--dropdown {
+  background-color: #004111;
+}
+
+#home-profile {
+  color: white;
+}
+
+#nav-dropdown-dark-example {
+  color: wheat;
+  border: 1px solid wheat;
+  border-radius: 30px;
+}
+
+#nav-dropdown-dark-example:hover {
+  color: rgb(255, 170, 0);
+  border: 1px solid rgb(139, 111, 57);
+  border-radius: 30px;
+}

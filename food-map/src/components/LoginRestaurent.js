@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Nav } from "react-bootstrap";
 import { makeFormEffect } from "./FormStyle";
 
-const Login = ({ setLoginUser }) => {
+const LoginRestaurent = ({ setLoginUser }) => {
   const history = useHistory();
 
   const form_effect = () => {
@@ -108,4 +108,4 @@ const Login = ({ setLoginUser }) => {
   );
 };
 
-export default Login;
+export default LoginRestaurent;
