@@ -1,43 +1,50 @@
 import React, { useState } from "react";
 import "../CSS/Register.css";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { makeFormEffect } from "./FormStyle";
 
 const Register = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const form_effect = () => {
     makeFormEffect();
   };
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    address: "",
-    password: "",
-  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser({
-      ...user,
-      [name]: value,
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function registerUser(event) {
+    event.preventDefault();
+
+    const response = await fetch("http://localhost:5000/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        address,
+        password,
+      }),
     });
-  };
 
-  const register = () => {
-    const { name, email, address, password } = user;
-    if (name && email && address && password) {
-      axios.post("http://localhost:9002/register", user).then((res) => {
-        alert(res.data.message);
-        history.push("/login");
-      });
+    const data = await response.json();
+    console.log(data);
+    if (response.status === 422 || !data) {
+      window.alert("Invalid Registration");
+      console.log("Invalid Registration");
     } else {
-      alert("invlid input");
+      window.alert("Registration Success");
+      console.log("Registration Success");
+      navigate("/login");
     }
-  };
+  }
 
   makeFormEffect();
+
   return (
     <div className="register--body">
       <img class="wave" src="images/wave.png" />
@@ -58,8 +65,8 @@ const Register = () => {
                 <input
                   type="text"
                   name="name"
-                  value={user.name}
-                  onChange={handleChange}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   class="input"
                 ></input>
               </div>
@@ -72,8 +79,8 @@ const Register = () => {
                 <h5>Email</h5>
                 <input
                   name="email"
-                  value={user.email}
-                  onChange={handleChange}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   type="email"
                   class="input"
                 ></input>
@@ -87,8 +94,8 @@ const Register = () => {
                 <h5>Address</h5>
                 <input
                   name="address"
-                  value={user.address}
-                  onChange={handleChange}
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
                   type="text"
                   class="input"
                 ></input>
@@ -102,22 +109,22 @@ const Register = () => {
                 <h5>Password</h5>
                 <input
                   name="password"
-                  value={user.password}
-                  onChange={handleChange}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   class="input"
                 ></input>
               </div>
             </div>
             <input
-              onClick={register}
+              onClick={registerUser}
               type="submit"
               class="btn"
               value="Register"
             ></input>
             <h6>
               Already Have an Account?{" "}
-              <span onClick={() => history.push("/login")} id="log--in">
+              <span onClick={() => navigate("/login")} id="log--in">
                 Login
               </span>
             </h6>

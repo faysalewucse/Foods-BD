@@ -1,5 +1,6 @@
 #nav--bar {
-  font-size: 18px;
+  font-size: 20px;
+  padding: 30px;
 }
 #navbar--brand {
   font-size: 25px;
@@ -80,6 +81,7 @@
   color: wheat;
   border: 1px solid wheat;
   border-radius: 30px;
+  margin-left: 10px;
 }
 
 #nav-dropdown-dark-example:hover {

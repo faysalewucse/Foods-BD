@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import "../CSS/Login.css";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Nav } from "react-bootstrap";
 import { makeFormEffect } from "./FormStyle";
 
 const Login = ({ setLoginUser }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const form_effect = () => {
     makeFormEffect();
@@ -30,7 +30,7 @@ const Login = ({ setLoginUser }) => {
     axios.post("http://localhost:9002/login", user).then((res) => {
       alert(res.data.message);
       setLoginUser(res.data.user);
-      history.push("/");
+      navigate("/");
     });
   };
 
@@ -88,19 +88,10 @@ const Login = ({ setLoginUser }) => {
             ></input>
             <h6>
               Don't Have an Account?{" "}
-              <span onClick={() => history.push("/register")} id="sign--up">
+              <span onClick={() => navigate("/register")} id="sign--up">
                 Sign Up
               </span>
             </h6>
-            <h5>
-              <span
-                onClick={() => history.push("/register_as_restaurent")}
-                id="sign--up"
-              >
-                Register
-              </span>{" "}
-              as a Restaurent
-            </h5>
           </div>
         </div>
       </div>

@@ -88,19 +88,10 @@ const LoginRestaurent = ({ setLoginUser }) => {
             ></input>
             <h6>
               Don't Have an Account?{" "}
-              <span onClick={() => history.push("/register")} id="sign--up">
+              <span onClick={() => history.push("/reg-res")} id="sign--up">
                 Sign Up
               </span>
             </h6>
-            <h5>
-              <span
-                onClick={() => history.push("/register_as_restaurent")}
-                id="sign--up"
-              >
-                Register
-              </span>{" "}
-              as a Restaurent
-            </h5>
           </div>
         </div>
       </div>

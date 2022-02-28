@@ -1,14 +1,15 @@
 import React from "react";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "../CSS/Header.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useHistory } from "react-router-dom";
-import "bootstrap/dist/js/bootstrap.js";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
-  const history = useHistory();
-
+  const navigate = useNavigate();
+  const gotoRegister = () => {
+    navigate("/register");
+  };
   return (
     <>
       <Navbar
@@ -33,51 +34,56 @@ function Header() {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link
-                id="home--btn"
-                as={Link}
-                to="/"
-                onClick={history.push("/")}
-              >
+              <Nav.Link as={Link} to="/">
                 Home
               </Nav.Link>
-              <Nav.Link id="foods--btn" as={Link} to="/">
-                Foods
+              <Nav.Link as={Link} to="/about">
+                About
               </Nav.Link>
-              <NavDropdown title="Categories" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
-              <Nav.Link as={Link} to="/">
+              <Nav.Link as={Link} to="/contact">
                 Contact
               </Nav.Link>
+
+              <NavDropdown
+                menuVariant="dark"
+                title="Categories"
+                id="collasible-nav-dropdown"
+              >
+                <NavDropdown.Item href="#action/3.1">Burgers</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">Chicken</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">
+                  Caked & Bakery
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4">Dessert</NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Link onClick={gotoRegister}>Register</Nav.Link>
             </Nav>
             <>
               <Nav.Link id="trace--btn" as={Link} to="/">
                 TRACE
               </Nav.Link>
-              <Nav.Link id="chat--btn" as={Link} to="/">
-                MESSAGE
-              </Nav.Link>
+              <img
+                src="images/shopping-cart.png"
+                width={30}
+                height={30}
+                alt="cart-logo"
+              />
             </>
             <NavDropdown
               id="nav-dropdown-dark-example"
               title="Faysal Ahmed"
               menuVariant="dark"
             >
-              <NavDropdown.Item onClick={history.push("/customer-dashboard")}>
+              <NavDropdown.Item as={Link} to="/customer">
                 Profile
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Logout</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/">
+                Orders
+              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/">
+                Logout
+              </NavDropdown.Item>
               {/* <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">

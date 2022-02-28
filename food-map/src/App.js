@@ -1,32 +1,27 @@
-import { Redirect, Route, Switch } from "react-router-dom";
-import React from "react";
+// import './App.css';
 import Header from "./components/Header";
-import HomePage from "./components/HomePage";
 import Login from "./components/Login";
+import HomePage from "./components/HomePage";
 import Register from "./components/Register";
+import Footer from "./components/Footer";
 import CustomerDashboard from "./components/CustomerDashboard";
+import { Routes, Route } from "react-router-dom";
+import RestaurentReg from "./components/RestaurentReg";
 
-export default function App() {
+function App() {
   return (
     <div className="App">
       <Header />
-      <Switch>
-        <Route path="/" exact>
-          <Redirect to="/hello" />
-        </Route>
-        <Route path="/hello">
-          <HomePage />
-        </Route>
-        <Route path="/login" exact>
-          <Login />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/customer-dashboard">
-          <CustomerDashboard />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        {/* <Route path="/restaurent" element={<RestaurentReg />} /> */}
+        <Route path="/customer" element={<CustomerDashboard />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }
+
+export default App;
